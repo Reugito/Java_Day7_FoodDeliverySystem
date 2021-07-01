@@ -36,4 +36,16 @@ public class FoodManager {
 				System.out.println(elements);
 		}
 	}
+	FoodItems getFoodItem(String name) {
+		Iterator iterator = foodList.iterator();
+		for(FoodItems elements : foodList ) {
+			if (iterator.hasNext()) {
+				FoodItems fooditem = (FoodItems) iterator.next();
+				if(fooditem.name.equalsIgnoreCase(name)) {
+					return fooditem;
+				}
+			}		
+		}
+		return null;	
+	}
 }
