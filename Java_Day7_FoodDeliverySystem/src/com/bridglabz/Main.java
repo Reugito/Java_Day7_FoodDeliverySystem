@@ -2,8 +2,9 @@ package com.bridglabz;
 
 import java.util.Scanner;
 
-public class Main {
-	FoodManager foodManager = new FoodManager();
+public class Main  {
+	FoodManager foodManager =  FoodManager.getInstance();
+	Scanner sc = new Scanner(System.in);
 	
 	public static void main(String[] args) {
 		Biryani biryani = new Biryani();
@@ -22,33 +23,44 @@ public class Main {
 		main.foodManager.addFoodItems(pizza);
 		main.foodManager.addFoodItems(appleJuice);
 		main.foodManager.addFoodItems(burgger);
-		main.foodManager.printFoodItems();
-		biryani.printIngredients();
-		main.foodManager.printAllVegItems();
-		System.out.println(main.foodManager.getFoodCount());
-		main.foodManager.printAllNonVegItems();
-		
 		main.showMenu();
-		main.foodManager.printFoodItems();
 	}
 	
 	void showMenu() {
-		System.out.println("1. To Update Food Item");
-		Scanner sc = new Scanner(System.in);
-		int choice = sc.nextInt();
-		switch(choice) {
-		case 1:
-			updateFoodItem();
-			break;
-		}
+		int choice = 0;
+		do {
+			System.out.println("\n1. Show food items");
+			System.out.println("2. To Update Food Item");
+			System.out.println("3. To Add Food Item");
+			System.out.println("4. To Remove Food Item");
+			System.out.println("5. To Place the order");
+			choice = sc.nextInt();
+			switch(choice) {
+				case 1: 
+					foodManager.printFoodItems();
+					break;
+				case 2:
+					updateFoodItem();
+					break;
+				case 3:
+					addFoodItem();
+					break;
+				case 4:
+					foodManager.removeItem();
+					break;
+				case 5:
+					placeOrder();
+				default:
+					choice = 10;
+			}
+		}while(choice != 10);
 	}
 	
 	private void updateFoodItem() {
 		
 		System.out.print("Enter food name: ");
-		Scanner sc = new Scanner(System.in);
 		String item = sc.next();
-		FoodItems fooditem = foodManager.getFoodItem(item);
+		FoodItmes fooditem = foodManager.getFoodItem(item);
 		System.out.println(fooditem);
 		
 		System.out.println("1. change test");
@@ -65,28 +77,112 @@ public class Main {
 				System.out.println("Enter new price: ");
 				float price = sc.nextFloat();
 				fooditem.price = price;
+				break;
+			 case 3:
+	                System.out.println("Enter Preparation time: ");
+	                short time = sc.nextShort();
+	                fooditem.preparationTime = time;
+	                break;
 		}
 	}
 	
-	private void updateTest(FoodItems foodItem) {
-		Scanner sc = new Scanner(System.in);
+	private void updateTest(FoodItmes foodItmes) {
 		System.out.println("Change test to");
 		System.out.println("1. cheesy");
 		System.out.println("2. Sweet");
 		System.out.println("3. spicy");
 		System.out.println("4. chrisppy");
 		int test = sc.nextInt();
+		
 		switch(test) {
 			case 1:
-				foodItem.tast = FoodItems.Test.CHEESY;
+				foodItmes.tast = FoodItmes.Test.CHEESY;
 				break;
 			case 2:
-				foodItem.tast = FoodItems.Test.SWEET;
+				foodItmes.tast = FoodItmes.Test.SWEET;
 				break;
 			case 3:
-				foodItem.tast = FoodItems.Test.SPICY;
+				foodItmes.tast = FoodItmes.Test.SPICY;
+				break;
+		}
+		System.out.print("fooditems == "+foodItmes);
+	}
+	
+	private void addFoodItem() {
+		FoodItmes newFoodItem = new FoodItmes() ;
+		System.out.print("Enter food item name: ");
+		String name = sc.next();
+		newFoodItem.name = name;
+		
+		System.out.println("Select Test: ");
+		System.out.println("1. cheesy");
+		System.out.println("2. Sweet");
+		System.out.println("3. spicy");
+		System.out.println("4. chrisppy");
+		int test = sc.nextInt();
+		
+		switch(test) {
+			case 1:
+				newFoodItem.tast = FoodItmes.Test.CHEESY;
+				break;
+			case 2:
+				newFoodItem.tast = FoodItmes.Test.SWEET;
+				break;
+			case 3:
+				newFoodItem.tast = FoodItmes.Test.SPICY;
 				break;
 		}
 		
+		System.out.print("Enter new price: ");
+		float price = sc.nextFloat();
+		newFoodItem.price = price;
+		
+		System.out.println("Enter Preparation time: ");
+        short time = sc.nextShort();
+        newFoodItem.preparationTime = time;
+		
+        System.out.println("food item Select category");
+        System.out.println("1. juice");
+		System.out.println("2. maincource");
+		System.out.println("3. STARTER");
+		int category = sc.nextInt();
+		
+		switch(category) {
+			case 1:
+				newFoodItem.catagory = FoodItmes.Category.JUICE;
+				break;
+			case 2:
+				newFoodItem.catagory = FoodItmes.Category.MAINCOURSE;
+				break;
+			case 3:
+				newFoodItem.catagory = FoodItmes.Category.STARTER;
+				break;
+		}
+
+        System.out.println("food item Select Type");
+        System.out.println("1. Veg");
+		System.out.println("2. Non Veg");
+		int type = sc.nextInt();
+		
+		switch(type) {
+			case 1:
+				newFoodItem.type = FoodItmes.Type.VEG;
+				break;
+			case 2:
+				newFoodItem.type = FoodItmes.Type.NONVEG;
+				break;
+		}
+		foodManager.addFoodItems(newFoodItem);
+		System.out.print("fooditems == "+newFoodItem);
+	}
+	
+	private void placeOrder() {
+		Order order = new Order();
+		System.out.print("Enter food item name: ");
+		System.out.print("Enter personName: ");
+		System.out.print("Enter dropLcation: ");
+		System.out.print("Enter food item name: ");
+		System.out.print("Enter food item name: ");
+		System.out.print("Enter food item name: ");
 	}
 }

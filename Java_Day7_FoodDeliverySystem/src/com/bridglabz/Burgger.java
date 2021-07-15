@@ -1,6 +1,6 @@
 package com.bridglabz;
 
-public class Burgger extends FoodItems implements IVeg {
+public class Burgger extends FoodItmes  {
 	public Burgger() {
 		type = Type.VEG ;
 		catagory = Category.STARTER;
@@ -9,8 +9,4 @@ public class Burgger extends FoodItems implements IVeg {
 		name = "Burgger";
 	}
 
-	@Override
-	public void printIngredients() {
-		System.out.println("Burgger ingredients");
-	}
 }

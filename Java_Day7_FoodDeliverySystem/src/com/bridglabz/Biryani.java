@@ -1,6 +1,6 @@
 package com.bridglabz;
 
-public class Biryani extends FoodItems implements INonVeg {
+public class Biryani extends FoodItmes  {
 	public Biryani() {
 		type = Type.NONVEG ;
 		catagory = Category.MAINCOURSE ;
@@ -9,8 +9,5 @@ public class Biryani extends FoodItems implements INonVeg {
 		name = "Biryani";
 	}
 
-	@Override
-	public void printIngredients() {
-		System.out.println("biryani ingredients");
-	}
+	
 }
