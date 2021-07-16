@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Main  {
 	FoodManager foodManager =  FoodManager.getInstance();
 	Scanner sc = new Scanner(System.in);
-	
+	Order order = new Order();
 	public static void main(String[] args) {
 		Biryani biryani = new Biryani();
 		biryani.price = 250;
@@ -50,6 +50,8 @@ public class Main  {
 					break;
 				case 5:
 					placeOrder();
+					System.out.println(order);
+					
 				default:
 					choice = 10;
 			}
@@ -177,12 +179,29 @@ public class Main  {
 	}
 	
 	private void placeOrder() {
-		Order order = new Order();
-		System.out.print("Enter food item name: ");
-		System.out.print("Enter personName: ");
-		System.out.print("Enter dropLcation: ");
-		System.out.print("Enter food item name: ");
-		System.out.print("Enter food item name: ");
-		System.out.print("Enter food item name: ");
+		getFoodItemlist();
+		System.out.print("Enter customer Name: ");
+		order.customerName = sc.next();
+		System.out.print("Enter food item delivery address: ");
+		order.deliveryAddress = sc.next();
+		System.out.println("Enter food item orderTime: ");
+		order.orderTime = java.time.LocalDateTime.now();
+	}
+	
+	private void getFoodItemlist() {
+		String foodItemName = "";
+		while(!foodItemName.equals("quit")) {
+			System.out.print("Enter food items name: ");
+			foodItemName = sc.next();
+			FoodItmes foodItem = foodManager.getFoodItem(foodItemName);
+			if(foodItem != null) {
+				System.out.print("Enter food item quantity: ");
+				order.quantity = sc.nextInt();
+				order.totalPrice += (foodItem.price * order.quantity);
+				order.foodItemList.add(foodItem);
+			}
+			else if(!foodItemName.equals("quit"))
+				System.out.println("food item not present");
+		}
 	}
 }
